@@ -8,7 +8,73 @@ public class Main {
         task2();
         task3();
         task4();
+        task5();
+        task6();
 
+    }
+
+    private static void task6() {
+        System.out.println("Задание 5.");
+
+        Scanner one = new Scanner(System.in );
+        System.out.print("Укажите номер месяца: "); // задаем номер через консоль.
+        int monthNumber = one.nextInt();
+
+        switch (monthNumber) {
+            case 1:
+                System.out.println("Январь, принадлежит к сезону зима");
+                break;
+            case 2:
+                System.out.println("Февраль, принадлежит к сезону зима");
+                break;
+            case 3:
+                System.out.println("Март, принадлежит к сезону весна");
+                break;
+            case 4:
+                System.out.println("Апрель, принадлежит к сезону весна");
+                break;
+            case 5:
+                System.out.println("Май, принадлежит к сезону весна");
+                break;
+            case 6:
+                System.out.println("Июнь, принадлежит к сезону лето");
+                break;
+            case 7:
+                System.out.println("Июль, принадлежит к сезону лето");
+                break;
+            case 8:
+                System.out.println("Август, принадлежит к сезону лето");
+                break;
+            case 9:
+                System.out.println("Сентябрь, принадлежит к сезону осень");
+                break;
+            case 10:
+                System.out.println("Октябрь, принадлежит к сезону осень");
+                break;
+            case 11:
+                System.out.println("Ноябрь, принадлежит к сезону осень");
+                break;
+            case 12:
+                System.out.println("Декабрь, принадлежит к сезону зима");
+                break;
+            default:
+                System.out.println("Такого месяца не существует");
+        }
+    }
+
+    private static void task5() {
+        System.out.println("Задание 4.");
+
+        int deliveryDistance = 95; // дистанцию до клиента
+
+        if (deliveryDistance <= 20){
+            System.out.println("Потребуется дней: " + " 1");
+        } else if (deliveryDistance > 20 && deliveryDistance <= 60) {
+            System.out.println("Потребуется дней: " + " 2");
+        } else if (deliveryDistance > 60 && deliveryDistance <= 100){
+            System.out.println("Потребуется дней: " + " 3");
+        } else {
+            System.out.println("Доставки не будет"); }
     }
 
     private static void task4() {
