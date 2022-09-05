@@ -10,7 +10,51 @@ public class Main {
         task4();
         task5();
         task6();
+        task7();
 
+
+    }
+
+    private static void task7() {
+        System.out.println("Задание 6.");
+
+        Scanner one = new Scanner(System.in );
+        System.out.print("Укажите возраст клиента: "); // задаем суммы через консоль.
+        int age = one.nextInt();
+
+        Scanner two = new Scanner(System.in );
+        System.out.print("Укажите доход клиента: "); // задаем суммы через консоль.
+        int salary = two.nextInt();
+
+
+        // допустимый лимит средств по возрасту
+        double creditLimitOne = salary * 3;
+        double creditLimitTwo = salary * 2;
+        // допустимый лимит средств по ЗП age >= 23
+        double creditLimitPercentOne = creditLimitOne * 1.2;
+        double creditLimitPercentTwo = creditLimitOne * 1.5;
+        // допустимый лимит средств по ЗП age < 23
+        double creditLimitPercentThree = creditLimitTwo * 1.2;
+        double creditLimitPercentFour = creditLimitTwo * 1.5;
+
+        if (age >= 23) {
+            if (salary >= 50 && salary < 80) {
+                System.out.printf("«Мы готовы выдать вам кредитную карту с лимитом %.2F рублей». \n", creditLimitPercentOne);
+            } else if (salary >= 80) {
+                System.out.printf("«Мы готовы выдать вам кредитную карту с лимитом %.2F рублей». \n", creditLimitPercentTwo);
+            } else {
+                System.out.printf("«Мы готовы выдать вам кредитную карту с лимитом %.2F рублей». \n", creditLimitOne);
+            }
+        }
+        if (age < 23) {
+            if (salary >= 50 && salary < 80) {
+                System.out.printf("«Мы готовы выдать вам кредитную карту с лимитом %.2F рублей». \n", creditLimitPercentThree);
+            } else if (salary >= 80) {
+                System.out.printf("«Мы готовы выдать вам кредитную карту с лимитом %.2F рублей». \n", creditLimitPercentFour);
+            } else {
+                System.out.printf("«Мы готовы выдать вам кредитную карту с лимитом %.2F рублей». \n", creditLimitTwo);
+            }
+        }
     }
 
     private static void task6() {
