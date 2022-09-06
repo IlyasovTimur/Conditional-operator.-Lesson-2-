@@ -18,46 +18,85 @@ public class Main {
     private static void task8() {
         System.out.println("Задание 7.");
 
-        int age = 25;
-        int salary = 60_000;
-        int wantedSum = 330_000;
+        Scanner one = new Scanner(System.in );
+        System.out.print("Возраст клиента: "); // задаем суммы через консоль.
+        int age = one.nextInt();
+
+        Scanner two = new Scanner(System.in );
+        System.out.print("Доход клиента: "); // задаем суммы через консоль.
+        int salary = two.nextInt();
+
+        Scanner three = new Scanner(System.in );
+        System.out.print("Укажите желаемой сумму кредита : "); // задаем суммы через консоль.
+        int wantedSum = three.nextInt();
+
+
+        // да это код int age = 25;
+        // да это код int salary = 60_000;
+        // int wantedSum = 330_000;
 
         double bankPercent = 1.1; // Базовая ставка для клиента 10%
-        double bankPercentAge23 = 1.11; // ставка для клиента младше 23 лет 11%
-        double bankPercentAge30 = 1.105; // ставка для клиента младше 30 лет 10.5%
-        double bankPercentHigher80_000 = 1.093; // ставка для клиентов c зарплатой больше 80_000 9.3%
-
+        double bankPercentAge23 = 1.11; // ставка для клиента age < 23 лет 11%
+        double bankPercentAge30 = 1.105; // ставка для клиента age < 30 лет 10.5%
+        double bankPercentHigher80_000 = 1.093; // ставка для клиентов salary > 80_000 - 9.3%
+        // возраст меньше 23, добавляем 1%
+        // возраст меньше 30, добавляем 0,5%
+        // зарплата больше 80_000, уменьшаем ставку на 0.7%
         int loanTime = 12; // Срок кредитования 12 месяцев
 
         double monthlyPayment = (wantedSum * bankPercent) / loanTime; // базовый ежемесячный платеж
-        double monthlyPaymentAgeBelow23 = (wantedSum * bankPercentAge23) / loanTime; // ежемесячный платеж для клиентов младше 23 лет
-        double monthlyPaymentAgeBelow30 = (wantedSum * bankPercentAge30) / loanTime; // ежемесячный платеж для клиентов младше 30 лет
-        double monthlyPaymentSalaryHigher80_000 = (wantedSum * bankPercentHigher80_000) / loanTime; // ежемесячный платеж для клиентов c зарплатой больше 80_000
-
+        double monthlyPaymentAgeBelow23 = (wantedSum * bankPercentAge23) / loanTime; // ежемесячный платеж для клиентов age < 23 лет
+        double monthlyPaymentAgeBelow30 = (wantedSum * bankPercentAge30) / loanTime; // ежемесячный платеж для клиентов age < 30 лет
+        double monthlyPaymentSalaryHigher80_000 = (wantedSum * bankPercentHigher80_000) / loanTime; // ежемесячный платеж для клиентов salary > 80_000
 
         double maximumLoanPayment = salary * 0.5; // Максимальный ежемесячный платеж 50% от ЗП
 
-        boolean ageBelow23 = age < 23; // возраст меньше 23, добавляем 1%
-        boolean ageBelow30 = age < 30; // возраст меньше 30, добавляем 0,5%
-        boolean salaryHigher80_000 = salary > 80_000; // зарплата больше 80_000, уменьшаем ставку на 0.7%
-
         boolean comparisonAmountsOne = maximumLoanPayment > monthlyPaymentSalaryHigher80_000; // сравнение суммы для одобрения либо отказа
+        boolean comparisonAmountTwo = maximumLoanPayment > monthlyPaymentAgeBelow23; // сравнение суммы для одобрения либо отказа для 23 лет
+        boolean comparisonAmountThree = maximumLoanPayment > monthlyPaymentAgeBelow30; // сравнение суммы для одобрения либо отказа для 30 лет
+        boolean comparisonAmountFour = maximumLoanPayment > monthlyPayment; // сравнение суммы для одобрения либо отказа всем остальным
 
 
-
-        if (salaryHigher80_000){
+        if (salary > 80_000){
             if (comparisonAmountsOne){
                 System.out.printf("«Максимальный платеж при ЗП %d равен %.2f рублей." +
                         " Платеж по кредиту %.2f рублей. Одобрено». \n", salary, maximumLoanPayment, monthlyPaymentSalaryHigher80_000);
+            } else {
+                System.out.printf("«Максимальный платеж при ЗП %d равен %.2f рублей." +
+                        " Платеж по кредиту %.2f рублей. Отказано». \n", salary, maximumLoanPayment, monthlyPaymentSalaryHigher80_000);
             }
-
+        } else {
+            if (age < 23){
+                if (comparisonAmountTwo){
+                System.out.printf("«Максимальный платеж при ЗП %d равен %.2f рублей." +
+                        " Платеж по кредиту %.2f рублей. Одобрено». \n", salary, maximumLoanPayment, monthlyPaymentAgeBelow23);
+                } else {
+                    System.out.printf("«Максимальный платеж при ЗП %d равен %.2f рублей." +
+                            " Платеж по кредиту %.2f рублей. Отказано». \n", salary, maximumLoanPayment, monthlyPaymentAgeBelow23);
+                }
+            } else if (age < 30){
+                if (comparisonAmountThree) {
+                    System.out.printf("«Максимальный платеж при ЗП %d равен %.2f рублей." +
+                            " Платеж по кредиту %.2f рублей. Одобрено». \n", salary, maximumLoanPayment, monthlyPaymentAgeBelow30);
+                } else {
+                    System.out.printf("«Максимальный платеж при ЗП %d равен %.2f рублей." +
+                            " Платеж по кредиту %.2f рублей. Отказано». \n", salary, maximumLoanPayment, monthlyPaymentAgeBelow23);
+                }
+            } else {
+                if (comparisonAmountFour){
+                    System.out.printf("«Максимальный платеж при ЗП %d равен %.2f рублей." +
+                        " Платеж по кредиту %.2f рублей. Одобрено». \n", salary, maximumLoanPayment, monthlyPayment);
+                } else {
+                    System.out.printf("«Максимальный платеж при ЗП %d равен %.2f рублей." +
+                            " Платеж по кредиту %.2f рублей. Отказано». \n", salary, maximumLoanPayment, monthlyPayment);
+                }
+            }
         }
-
-
+        one.close();
+        two.close();
+        three.close();
         // Вычислить максимальный платеж и платеж по кредиту.
         //System.out.println("«Максимальный платеж при ЗП *** равен *** рублей. Платеж по кредиту *** рублей. Одобрено/отказано».");
-
-
 
     }
 
@@ -100,6 +139,8 @@ public class Main {
                 System.out.printf("«Мы готовы выдать вам кредитную карту с лимитом %.2f рублей». \n", creditLimitPercentFour);
             }
         }
+        one.close();
+        two.close();
     }
 
     private static void task6() {
@@ -149,6 +190,7 @@ public class Main {
             default:
                 System.out.println("Такого месяца не существует");
         }
+        one.close();
     }
 
     private static void task5() {
@@ -198,13 +240,12 @@ public class Main {
             } else { // step 4
                 System.out.printf("%d год является високосным \n", year);
             }
-
+            one.close();
         // Step 1. year / 4 - (true - step 2/false - step 5)
         // Step 2. year / 100 - (true - step 3/false - step 4)
         // Step 3. year / 400 - (true - step 4/false - step 5)
         // Step 4. високосный год
         // Step 5. не високосный год
-
     }
 
     private static void task3() {
@@ -213,10 +254,10 @@ public class Main {
         int visitorsPerHour = 18; // количество посетителей сайта
         for (int i = 0; i < visitorsPerHour; i++) {
 
-            int clientOS = ThreadLocalRandom.current().nextInt(2); // класс для рандомных значений в заданном диапазоне 0-1.
+            int clientOS = ThreadLocalRandom.current().nextInt(2); // класс для случайных значений в заданном диапазоне 0-1.
             int clientDeviceYear = 2015; // маркер данных
 
-            Random random = new Random(); // ещё один класс для рандомных значений.
+            Random random = new Random(); // ещё один класс для случайных значений.
             int min = 2007; // диапазон значений
             int max = 2022; // диапазон значений
             int diff = max - min;
@@ -266,14 +307,12 @@ public class Main {
         for (int i = 0; i < numberOfRepetitions; i++) { // цикл задан для удобства
 
 
-            int multiplier = 10; // множитель рандомного числа
+            int multiplier = 10; // множитель случайного числа
 
             int random_number = (int) (Math.random() * multiplier); // Умножаю случайно сгенерированное число на 10, для того что бы получить целое числовое значение.
             if (random_number <= 5) { // Задаю диапазон значений, если условие выполняется, присваиваю clientOS значение 0 и вывожу нужное сообщение.
-                // int clientOS = 0;
                 System.out.println("Установите версию приложения для iOS по ссылке");
             } else { // иначе присваиваю clientOS значение 1 и вывожу нужное сообщение.
-                // int clientOS = 1;
                 System.out.println("Установите версию приложения для Android по ссылке");
             }
         }
